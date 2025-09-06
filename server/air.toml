@@ -1,0 +1,23 @@
+# .air.toml
+
+# Root directory of the project
+root = "."
+
+# Temporary directory untuk binary hasil build
+tmp_dir = "tmp"
+
+[build]
+# Nama binary setelah build
+bin = "main"
+
+# Command untuk build project
+cmd = "go build -o {{.Output}} {{.Input}}"
+
+# Direktori yang di-exclude agar tidak dipantau
+exclude = ["tmp/*", "client/*"]
+
+# File pattern yang dipantau (hanya file .go)
+include = ["**/*.go"]
+
+# File/direktori yang di-ignore saat trigger build
+ignore = ["tmp/*"]
