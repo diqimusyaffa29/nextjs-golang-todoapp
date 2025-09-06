@@ -8,19 +8,20 @@ import (
 )
 
 type Todo struct {
-	ID         int    `json:"id"`
-	Compeleted bool   `json:"completed"`
-	Body       string `json:"body"`
+	ID        int    `json:"id"`
+	Completed bool   `json:"completed"`
+	Body      string `json:"body"`
 }
 
 func main() {
-	fmt.Println("Hello World kocak")
+	fmt.Println("SERVER START")
 	app := fiber.New()
 
 	todos := []Todo{}
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
+		// return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
+		return c.Status(200).JSON(todos)
 	})
 
 	// Create a todo
@@ -39,5 +40,19 @@ func main() {
 		todos = append(todos, *todo)
 		return c.Status(201).JSON(todo)
 	})
+
+	// Update a todo
+	app.Patch("/api/todos/:id", func(c *fiber.Ctx) error {
+		id := c.Params("id")
+
+		for i, todo := range todos {
+			if fmt.Sprint(todo.ID) == id {
+				todos[i].Completed = true
+				return c.Status(200).JSON(todos[i])
+			}
+		}
+		return c.Status(404).JSON(fiber.Map{"error": "Todo not found"})
+	})
+
 	log.Fatal(app.Listen(":4000"))
 }
