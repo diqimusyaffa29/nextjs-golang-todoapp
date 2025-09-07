@@ -1,1 +1,43 @@
-server/tmp
+Binaries
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+Go build cache & modules
+
+/go/bin/
+/vendor/
+/*.log
+
+Temporary files
+
+tmp/
+*.tmp
+
+Air live reload temporary dir
+
+.air/
+.air.toml*
+
+Environment files
+
+.env
+
+OS-specific
+
+.DS_Store
+Thumbs.db
+
+IDE / Editor
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.un~
